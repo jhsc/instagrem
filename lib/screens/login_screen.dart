@@ -12,7 +12,12 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email, _password;
 
   _submit() {
-
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      print(_email);
+      print(_password);
+      // Login user w/ firebase
+    }
   }
 
   @override
