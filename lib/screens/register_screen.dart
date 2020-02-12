@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
+  static final String id = "register_screen";
+
   RegisterScreen({Key key}) : super(key: key);
 
   @override
@@ -10,13 +12,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(
-      child: Column(
-        children: <Widget>[
-          Text("Register here"),
-        ],
-      ),
-    ),
-    );
+    return Scaffold();
   }
 }

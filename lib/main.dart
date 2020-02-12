@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagrem/screens/login_screen.dart';
+import 'package:instagrem/screens/register_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoginScreen(),
+      routes: {
+        LoginScreen.id: (context) => LoginScreen(),
+        RegisterScreen.id: (context) => RegisterScreen(),
+      },
     );
   }
 }

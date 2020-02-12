@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:instagrem/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  static final String id = "login_screen";
+
   LoginScreen({Key key}) : super(key: key);
 
   @override
@@ -67,6 +70,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.blue,
                       child: Text(
                         "Login",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20.0,),
+                  Container(
+                    width: 250.0,
+                    padding: EdgeInsets.all(10.0),
+                    child: FlatButton(
+                      onPressed: () => Navigator.pushNamed(context, RegisterScreen.id),
+                      color: Colors.blue,
+                      child: Text(
+                        "Register",
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.white
