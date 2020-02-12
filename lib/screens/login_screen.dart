@@ -46,7 +46,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       vertical: 10.0),
                     child: TextFormField(
                       decoration: InputDecoration(labelText: "Email"),
-                      validator: (input) => !input.contains('@') ? "Please enter valid email" : null,
+                      validator: (input) => !input.contains('@')
+                      ? "Please enter valid email"
+                      : null,
                       onSaved: (input) => _email = input,
                     ),
                   ),
