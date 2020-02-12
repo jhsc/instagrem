@@ -10,8 +10,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Column(
-      children: <Widget>[Text("Instagrem")],) ,
+    return Scaffold(body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Text("Instagrem"),
+        ],
+      ),
+    ),
     );
   }
 }
