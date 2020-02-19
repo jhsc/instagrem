@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagrem/screens/register_screen.dart';
+import 'package:instagrem/services/auth_service.dart';
 
 class LoginScreen extends StatefulWidget {
   static final String id = "login_screen";
@@ -20,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       print(_email);
       print(_password);
       // Login user w/ firebase
+      AuthService.login(_email, _password);
     }
   }
 
