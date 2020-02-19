@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagrem/services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   static final String id = "register_screen";
@@ -16,10 +17,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      print(_name);
-      print(_email);
-      print(_password);
-      // Login user w/ firebase
+      // Register user w/ firebase
+      AuthService.signUpUser(context, _name, _email, _password);
     }
   }
   @override
@@ -71,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         decoration: InputDecoration(labelText: "Password"),
                         validator: (input) => input.length < 6 ? "Must be at least 6 characters" : null,
-                        onSaved: (input) => _password = input,
+                        onSaved: (input) => _password = input.trim(),
                         obscureText: true,
                       ),
                     ),

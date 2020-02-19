@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
-class FeedSacreen extends StatefulWidget {
-  FeedSacreen({Key key}) : super(key: key);
+class FeedScreen extends StatefulWidget {
+  static final String id = "feed_screen";
+
+  FeedScreen({Key key}) : super(key: key);
 
   @override
-  _FeedSacreenState createState() => _FeedSacreenState();
+  _FeedScreenState createState() => _FeedScreenState();
 }
 
-class _FeedSacreenState extends State<FeedSacreen> {
+class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.green,
+    );
   }
 }
