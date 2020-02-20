@@ -28,12 +28,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          'Instagrem',
-          style: TextStyle(
-            color: Colors.black,
-            fontFamily: 'Billabong',
-            fontSize: 35.0
+        title: Center(
+          child: Text(
+            'Instagrem',
+            style: TextStyle(
+              color: Colors.black,
+              fontFamily: 'Billabong',
+              fontSize: 35.0
+            ),
           ),
         ),
       ),
@@ -64,6 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         activeColor: Colors.black,
+        backgroundColor: Colors.white,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
