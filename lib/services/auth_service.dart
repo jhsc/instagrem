@@ -29,9 +29,12 @@ class AuthService {
     }
   }
 
-  static void logout(BuildContext context) {
-    _auth.signOut();
-    Navigator.pushReplacementNamed(context, LoginScreen.id);
+  static void logout() {
+    try {
+      _auth.signOut();
+    } catch (e) {
+      print("Error Loging out ${e.toString()}");
+    }
   }
 
   static void login(String email, String password) async {
