@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagrem/screens/feed_screen.dart';
+import 'package:instagrem/screens/home_screen.dart';
 import 'package:instagrem/screens/login_screen.dart';
 import 'package:instagrem/screens/register_screen.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         print('\n\nstream >>>>>>>>>> ${snapshot.hasData}');
         if (snapshot.hasData) {
-          return FeedScreen();
+          return HomeScreen();
         } else {
           return LoginScreen();
         }
