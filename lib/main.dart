@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, snapshot) {
         print('\n\nstream >>>>>>>>>> ${snapshot.hasData}');
         if (snapshot.hasData) {
-          return HomeScreen();
+          return HomeScreen(userId: snapshot.data.uid,);
         } else {
           return LoginScreen();
         }
@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
+          color: Colors.black
+        )
       ),
       home: _getScreenId(),
       routes: {
