@@ -80,22 +80,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ],
                         ),
-
-                      ],)
+                      ],
+                      ),
+                      Container(
+                        width: 200.0,
+                        child: FlatButton(
+                          onPressed: () => print('edit profile'),
+                          color: Colors.blue,
+                          textColor: Colors.white,
+                          child: Text(
+                            'Edit Profile',
+                            style: TextStyle(
+                              // fontSize: 18.0,
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )
               ],
             ),
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              Text(
+                'Username',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+              SizedBox(height: 5.0,),
+              Container(
+                height: 80.0,
+                child: Text(
+                  'bio',
+                  style: TextStyle(
+                    fontSize: 15.0,
+                  ),
+                ),
+              ),
+              Divider()
+            ],),
+          )
         ],
       ),
-
-      // body: Center(
-      //   child: Text(
-      //     'Profile'
-      //   ),
-      // ),
     );
   }
 }
