@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagrem/models/user.dart';
+import 'package:instagrem/services/database_service.dart';
 
 class EditProfileScreen extends StatefulWidget {
   final User user;
@@ -33,6 +34,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         bio: _bio,
       );
       // Db update
+      DatabaseService.updateUser(user);
       Navigator.pop(context);
     }
   }
