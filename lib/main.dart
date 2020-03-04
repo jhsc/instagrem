@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instagrem/models/user_data.dart';
 import 'package:instagrem/screens/home_screen.dart';
 import 'package:instagrem/screens/login_screen.dart';
 import 'package:instagrem/screens/pages/feed_screen.dart';
 import 'package:instagrem/screens/register_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,9 +14,9 @@ class MyApp extends StatelessWidget {
     return StreamBuilder<FirebaseUser>(
       stream: FirebaseAuth.instance.onAuthStateChanged,
       builder: (BuildContext context, snapshot) {
-        print('\n\nstream >>>>>>>>>> ${snapshot.hasData}');
         if (snapshot.hasData) {
-          return HomeScreen(userId: snapshot.data.uid,);
+          Provider.of<UserData>(context).currentUserId = snapshot.data.uid;
+          return HomeScreen();
         } else {
           return LoginScreen();
         }
@@ -25,21 +27,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Instagrem',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-          color: Colors.black
-        )
+    return ChangeNotifierProvider(
+      builder: (context) => UserData(),
+      child: MaterialApp(
+        title: 'Instagrem',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
+            color: Colors.black
+          )
+        ),
+        home: _getScreenId(),
+        routes: {
+          LoginScreen.id: (context) => LoginScreen(),
+          RegisterScreen.id: (context) => RegisterScreen(),
+          FeedScreen.id: (context) => FeedScreen(),
+        },
       ),
-      home: _getScreenId(),
-      routes: {
-        LoginScreen.id: (context) => LoginScreen(),
-        RegisterScreen.id: (context) => RegisterScreen(),
-        FeedScreen.id: (context) => FeedScreen(),
-      },
     );
   }
 }

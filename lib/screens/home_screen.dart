@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:instagrem/models/user_data.dart';
 import 'package:instagrem/screens/pages/activity_screen.dart';
 import 'package:instagrem/screens/pages/create_post_screen.dart';
 import 'package:instagrem/screens/pages/feed_screen.dart';
 import 'package:instagrem/screens/pages/profile_screen.dart';
 import 'package:instagrem/screens/pages/search_screen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String userId;
-  HomeScreen({Key key, this.userId}) : super(key: key);
+  // final String userId;
+  HomeScreen({Key key,}) : super(key: key);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -34,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SearchScreen(),
           CreatePostScreen(),
           ActivityScreen(),
-          ProfileScreen(userId: widget.userId,),
+          ProfileScreen(userId: Provider.of<UserData>(context).currentUserId,),
         ],
         onPageChanged: (int index) {
           setState(() {
