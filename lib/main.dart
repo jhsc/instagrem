@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           RegisterScreen.id: (context) => RegisterScreen(),
           FeedScreen.id: (context) => FeedScreen(),
         },
-      ),
+      ), create: (context) => UserData(),
     );
   }
 }
