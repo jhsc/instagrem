@@ -74,31 +74,34 @@ class _SearchScreenState extends State<SearchScreen> {
           },
         ),
       ),
-      body: FutureBuilder(
-        future: _users,
-        // initialData: InitialData,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      body: _users == null
+        ? Center(child: Text('Search for a user'),
+          )
+        : FutureBuilder(
+          future: _users,
+          // initialData: InitialData,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          if (snapshot.data.documents.length == 0) {
-            return Center(
-              child: Text('No users found! Please try again.'),
-            );
-          }
+            if (snapshot.data.documents.length == 0) {
+              return Center(
+                child: Text('No users found! Please try again.'),
+              );
+            }
 
-          return ListView.builder(
-            itemCount: snapshot.data.documents.length,
-            itemBuilder: (BuildContext context, int index) {
-              User user = User.fromDoc(snapshot.data.documents[index]);
-              return _buildUserTile(user);
-            },
-          );
-        },
-      ),
+            return ListView.builder(
+              itemCount: snapshot.data.documents.length,
+              itemBuilder: (BuildContext context, int index) {
+                User user = User.fromDoc(snapshot.data.documents[index]);
+                return _buildUserTile(user);
+              },
+            );
+          },
+        ),
     );
   }
 }
