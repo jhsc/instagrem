@@ -36,6 +36,13 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  _clearSearch() {
+    setState(() {
+      _searchController.clear();
+      _users = null;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
               icon: Icon(
                 Icons.clear,
               ),
-              onPressed: () => print('clear'),
+              onPressed: _clearSearch,
             ),
             filled: true,
           ),
