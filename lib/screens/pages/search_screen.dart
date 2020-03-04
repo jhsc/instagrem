@@ -37,8 +37,8 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   _clearSearch() {
+    WidgetsBinding.instance.addPostFrameCallback((_) => _searchController.clear());
     setState(() {
-      _searchController.clear();
       _users = null;
     });
   }
