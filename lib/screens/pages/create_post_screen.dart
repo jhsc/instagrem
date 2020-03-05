@@ -24,11 +24,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           actions: <Widget>[
             CupertinoActionSheetAction(
               child:Text('Take Photo'),
-              onPressed: () => print('Camera'),
+              onPressed: () => print('Camera..'),
             ),
             CupertinoActionSheetAction(
               child:Text('Choose From Gallery'),
-              onPressed: () => print('Gallery'),
+              onPressed: () => print('Gallery...'),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
