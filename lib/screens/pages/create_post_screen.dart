@@ -12,6 +12,8 @@ class CreatePostScreen extends StatefulWidget {
 }
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
+  File _image;
+
   _showSelectImageDialog() {
     return Platform.isIOS ? _iosBottomSheet() : _androidDialog();
   }
@@ -25,11 +27,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           actions: <Widget>[
             CupertinoActionSheetAction(
               child:Text('Take Photo'),
-              onPressed: () => print('Camera..'),
+              onPressed: () => _handleImage(ImageSource.camera),
             ),
             CupertinoActionSheetAction(
               child:Text('Choose From Gallery'),
-              onPressed: () => print('Gallery...'),
+              onPressed: () => _handleImage(ImageSource.gallery),
             ),
           ],
           cancelButton: CupertinoActionSheetAction(
@@ -50,11 +52,11 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           children: <Widget>[
             SimpleDialogOption(
               child: Text('Take Photo'),
-              onPressed: () => print('Camera'),
+              onPressed: () => _handleImage(ImageSource.camera),
             ),
             SimpleDialogOption(
               child: Text('Choose From Gallery'),
-              onPressed: () => print('Gallery'),
+              onPressed: () => _handleImage(ImageSource.gallery),
             ),
             SimpleDialogOption(
               child: Text(
@@ -67,6 +69,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         );
       }
     );
+  }
+
+   _handleImage(ImageSource source) async {
+     Navigator.pop(context);
+     File imageFile = await ImagePicker.pickImage(source: source);
+     if (imageFile != null) {
+       setState(() {
+         _image = imageFile;
+       });
+     }
   }
 
   @override
@@ -100,11 +112,16 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               height: width,
               width: width,
               color: Colors.grey[300],
-              child: Icon(
-                Icons.add_a_photo,
-                color: Colors.white70,
-                size: 150.0,
-              ),
+              child: _image == null
+                ? Icon(
+                    Icons.add_a_photo,
+                    color: Colors.white70,
+                    size: 150.0,
+                  )
+                : Image(
+                  image: FileImage(_image),
+                  fit: BoxFit.cover
+                )
             ),
           )
         ],
