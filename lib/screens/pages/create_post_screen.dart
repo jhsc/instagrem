@@ -1,11 +1,15 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagrem/models/post.dart';
+import 'package:instagrem/models/user_data.dart';
+import 'package:instagrem/services/database_service.dart';
 import 'package:instagrem/services/storage_service.dart';
+import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
   CreatePostScreen({Key key}) : super(key: key);
@@ -104,7 +108,14 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
 
       // create post
       String imageUrl = await StorageService.uploadPost(_image);
-      Post post = Post();
+      Post post = Post(
+        imageUrl: imageUrl,
+        caption: _caption,
+        likes: {},
+        authorId: Provider.of<UserData>(context).currentUserId,
+        timestamp: Timestamp.fromDate(DateTime.now()),
+      );
+      DatabaseService.createPost(post);
 
       // reset data
       _captionController.clear();
