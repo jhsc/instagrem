@@ -158,6 +158,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
             height: height,
             child: Column(
               children: <Widget>[
+                _isLoading
+                  ? Padding(
+                      padding: EdgeInsets.only(bottom: 10.0),
+                      child: LinearProgressIndicator(
+                        backgroundColor: Colors.blue[200],
+                        valueColor: AlwaysStoppedAnimation(Colors.blue),
+                    ),
+                  )
+                : SizedBox.shrink(),
                 GestureDetector(
                   onTap: _showSelectImageDialog,
                     child: Container(
