@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:instagrem/models/post.dart';
+import 'package:instagrem/services/storage_service.dart';
 
 class CreatePostScreen extends StatefulWidget {
   CreatePostScreen({Key key}) : super(key: key);
@@ -94,6 +96,27 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
     return cropImage;
   }
 
+  _submit() async {
+    if (!_isLoading && _image != null && _caption.isNotEmpty) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      // create post
+      String imageUrl = await StorageService.uploadPost(_image);
+      Post post = Post();
+
+      // reset data
+      _captionController.clear();
+
+      setState(() {
+        _caption = '';
+        _image = null;
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -113,7 +136,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
-            onPressed: () {},
+            onPressed: _submit,
           )
         ],
       ),
