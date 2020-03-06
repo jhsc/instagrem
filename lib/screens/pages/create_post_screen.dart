@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreatePostScreen extends StatefulWidget {
   CreatePostScreen({Key key}) : super(key: key);
@@ -41,7 +42,31 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
   }
 
   _androidDialog() {
-
+    showDialog(
+      context: context,
+      builder:  (BuildContext context) {
+        return SimpleDialog(
+          title: Text('Add Photo'),
+          children: <Widget>[
+            SimpleDialogOption(
+              child: Text('Take Photo'),
+              onPressed: () => print('Camera'),
+            ),
+            SimpleDialogOption(
+              child: Text('Choose From Gallery'),
+              onPressed: () => print('Gallery'),
+            ),
+            SimpleDialogOption(
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.redAccent),
+              ),
+              onPressed: () => Navigator.pop(context),
+            )
+          ],
+        );
+      }
+    );
   }
 
   @override
