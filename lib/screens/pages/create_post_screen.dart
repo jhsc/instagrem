@@ -14,7 +14,7 @@ class CreatePostScreen extends StatefulWidget {
 
 class _CreatePostScreenState extends State<CreatePostScreen> {
   File _image;
-  TextEditingController _captionCOntroller = TextEditingController();
+  TextEditingController _captionController = TextEditingController();
   String _caption;
   bool _isLoading = false;
 
@@ -117,27 +117,47 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           )
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          GestureDetector(
-            onTap: _showSelectImageDialog,
-              child: Container(
-              height: width,
-              width: width,
-              color: Colors.grey[300],
-              child: _image == null
-                ? Icon(
-                    Icons.add_a_photo,
-                    color: Colors.white70,
-                    size: 150.0,
-                  )
-                : Image(
-                  image: FileImage(_image),
-                  fit: BoxFit.cover
+      body: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+          child: SingleChildScrollView(
+          child: Container(
+            height: height,
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: _showSelectImageDialog,
+                    child: Container(
+                    height: width,
+                    width: width,
+                    color: Colors.grey[300],
+                    child: _image == null
+                      ? Icon(
+                          Icons.add_a_photo,
+                          color: Colors.white70,
+                          size: 150.0,
+                        )
+                      : Image(
+                        image: FileImage(_image),
+                        fit: BoxFit.cover
+                      )
+                  ),
+                ),
+                SizedBox(height: 20.0,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.0),
+                  child: TextField(
+                    controller: _captionController,
+                    style: TextStyle(fontSize: 18.0),
+                    decoration: InputDecoration(
+                      labelText: 'Caption'
+                    ),
+                    onChanged: (input) => _caption = input,
+                  ),
                 )
+              ],
             ),
           ),
-        ],
+        ),
       )
     );
   }
