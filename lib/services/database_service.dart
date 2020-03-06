@@ -26,4 +26,50 @@ class DatabaseService {
       'timestamp': post.timestamp,
     });
   }
+
+  static void followUser({String currentUserId, String userId}) {
+    // Add user to current users following collection.
+    followingRef
+      .document(currentUserId)
+      .collection('userFollowing')
+      .document(userId)
+      .setData({});
+
+      //Add current user to the user's followers collection.
+    followersRef
+      .document(userId)
+      .collection('userFollowers')
+      .document(currentUserId)
+      .setData({});
+  }
+
+  static void unfollowUser({String currentUserId, String userId}) {
+    // Remove user to current users following collection.
+    followingRef
+      .document(currentUserId)
+      .collection('userFollowing')
+      .document(userId)
+      .get().then((doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      });
+
+      // Remove current user to the user's followers collection.
+    followersRef
+      .document(userId)
+      .collection('userFollowers')
+      .document(currentUserId)
+      .get().then((doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      });
+  }
+
+  static Future<bool> isFollowingUser({String currentUserId, String userId}) async {
+
+  }
+
+
 }

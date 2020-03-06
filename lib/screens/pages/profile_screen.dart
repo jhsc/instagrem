@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:instagrem/models/user.dart';
+import 'package:instagrem/models/user_data.dart';
 import 'package:instagrem/screens/pages/edit_profile_screen.dart';
 import 'package:instagrem/utilities/constants.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String userId;
@@ -16,6 +18,44 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool isFollowing = false;
+  int followerCount = 0;
+  int followingCount = 0;
+
+  _displayButton(User user) {
+    return user.id == Provider.of<UserData>(context).currentUserId ? Container(
+      width: 200.0,
+      child: FlatButton(
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => EditProfileScreen(user: user,)
+          ),
+        ),
+        color: Colors.blue,
+        textColor: Colors.white,
+        child: Text(
+          'Edit Profile',
+          style: TextStyle(
+            // fontSize: 18.0,
+          ),
+        ),
+      ),
+    ) : Container(
+      width: 200.0,
+      child: FlatButton(
+        onPressed: () => {},
+        color: isFollowing ? Colors.grey[200] : Colors.blue,
+        textColor: isFollowing ? Colors.black :Colors.white,
+        child: Text(
+          isFollowing ? 'Unfollow' : 'Edit Profile',
+          style: TextStyle(
+            // fontSize: 18.0,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,24 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                         ),
-                        Container(
-                          width: 200.0,
-                          child: FlatButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (_) => EditProfileScreen(user: user,)
-                              ),
-                            ),
-                            color: Colors.blue,
-                            textColor: Colors.white,
-                            child: Text(
-                              'Edit Profile',
-                              style: TextStyle(
-                                // fontSize: 18.0,
-                              ),
-                            ),
-                          ),
-                        ),
+                        _displayButton(user),
                       ],
                     ),
                   )
