@@ -87,7 +87,7 @@ class DatabaseService {
   }
 
   static Future<int> numFollowers(String userId) async {
-    QuerySnapshot followersSnapshot = await followingRef
+    QuerySnapshot followersSnapshot = await followersRef
       .document(userId)
       .collection('userFollowers')
       .getDocuments();

@@ -28,6 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     super.initState();
     _setupIsFollowing();
+    _setupFollowers();
+    _setupFollowing();
   }
 
   _setupIsFollowing() async {
@@ -38,6 +40,52 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     setState(() {
       isFollowing = isFollowingUser;
+    });
+  }
+
+  _setupFollowers() async {
+    int userFollowerCount = await DatabaseService.numFollowers(widget.userId);
+
+    setState(() {
+      followerCount = userFollowerCount;
+    });
+  }
+
+  _setupFollowing() async {
+    int userFollowingCount = await DatabaseService.numFollowing(widget.userId);
+
+    setState(() {
+      followingCount = userFollowingCount;
+    });
+  }
+
+  _followOrUnfollow() {
+    if (isFollowing) {
+      _unfollowUser();
+    } else {
+      _followUser();
+    }
+  }
+
+  _unfollowUser() {
+    DatabaseService.unfollowUser(
+      currentUserId: widget.currentUserId,
+      userId: widget.userId,
+    );
+    setState(() {
+      isFollowing = false;
+      followerCount--;
+    });
+  }
+
+  _followUser() {
+    DatabaseService.followUser(
+      currentUserId: widget.currentUserId,
+      userId: widget.userId,
+    );
+    setState(() {
+      isFollowing = true;
+      followerCount++;
     });
   }
 
@@ -62,11 +110,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ) : Container(
       width: 200.0,
       child: FlatButton(
-        onPressed: () => {},
+        onPressed: _followOrUnfollow,
         color: isFollowing ? Colors.grey[200] : Colors.blue,
         textColor: isFollowing ? Colors.black :Colors.white,
         child: Text(
-          isFollowing ? 'Unfollow' : 'Edit Profile',
+          isFollowing ? 'Unfollow' : 'Follow',
           style: TextStyle(
             // fontSize: 18.0,
           ),
@@ -143,7 +191,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: <Widget>[
                               Text(
-                                '386',
+                                followerCount.toString(),
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.w600,
@@ -160,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Column(
                             children: <Widget>[
                               Text(
-                                '345',
+                                followingCount.toString(),
                                 style: TextStyle(
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.w600,
