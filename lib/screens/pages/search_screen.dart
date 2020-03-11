@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagrem/models/user.dart';
+import 'package:instagrem/models/user_data.dart';
 import 'package:instagrem/screens/pages/profile_screen.dart';
 import 'package:instagrem/services/database_service.dart';
+import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
   SearchScreen({Key key}) : super(key: key);
@@ -30,6 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
         MaterialPageRoute(
           builder: (_) => ProfileScreen(
             userId: user.id,
+            currentUserId: Provider.of<UserData>(context).currentUserId,
           )
         ),
       ),

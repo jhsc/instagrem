@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:instagrem/models/user.dart';
 import 'package:instagrem/models/user_data.dart';
 import 'package:instagrem/screens/pages/edit_profile_screen.dart';
+import 'package:instagrem/services/database_service.dart';
 import 'package:instagrem/utilities/constants.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   final String userId;
+  final String currentUserId;
 
-  ProfileScreen({this.userId});
+  ProfileScreen({this.userId, this.currentUserId});
 
   // ProfileScreen({Key key}) : super(key: key);
 
@@ -21,6 +23,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isFollowing = false;
   int followerCount = 0;
   int followingCount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupIsFollowing();
+  }
+
+  _setupIsFollowing() async {
+    bool isFollowingUser = await DatabaseService.isFollowingUser(
+      currentUserId: widget.currentUserId,
+      userId: widget.userId,
+    );
+
+    setState(() {
+      isFollowing = isFollowingUser;
+    });
+  }
 
   _displayButton(User user) {
     return user.id == Provider.of<UserData>(context).currentUserId ? Container(
