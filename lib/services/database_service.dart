@@ -77,5 +77,21 @@ class DatabaseService {
     return followingDoc.exists;
   }
 
+  static Future<int> numFollowing(String userId) async {
+    QuerySnapshot followingSnapshot = await followingRef
+      .document(userId)
+      .collection('userFollowing')
+      .getDocuments();
 
+      return followingSnapshot.documents.length;
+  }
+
+  static Future<int> numFollowers(String userId) async {
+    QuerySnapshot followersSnapshot = await followingRef
+      .document(userId)
+      .collection('userFollowers')
+      .getDocuments();
+
+      return followersSnapshot.documents.length;
+  }
 }
