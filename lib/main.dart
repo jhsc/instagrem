@@ -33,19 +33,18 @@ class MyApp extends StatelessWidget {
         title: 'Instagrem',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-          primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-            color: Colors.black
-          )
-        ),
+            primarySwatch: Colors.blue,
+            primaryIconTheme: Theme.of(context)
+                .primaryIconTheme
+                .copyWith(color: Colors.black)),
         home: _getScreenId(),
         routes: {
           LoginScreen.id: (context) => LoginScreen(),
           RegisterScreen.id: (context) => RegisterScreen(),
           FeedScreen.id: (context) => FeedScreen(),
         },
-      ), create: (context) => UserData(),
+      ),
+      create: (context) => UserData(),
     );
   }
 }
-

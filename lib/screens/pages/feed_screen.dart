@@ -20,20 +20,16 @@ class _FeedScreenState extends State<FeedScreen> {
           child: Text(
             'Instagrem',
             style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'Billabong',
-              fontSize: 35.0
-            ),
+                color: Colors.black, fontFamily: 'Billabong', fontSize: 35.0),
           ),
         ),
       ),
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.blue[300],
       body: Center(
         child: FlatButton(
-          onPressed: () => AuthService.logout(),
-          color: Colors.white,
-          child: Text('LOGOUT')
-        ),
+            onPressed: () => AuthService.logout(),
+            color: Colors.white,
+            child: Text('LOGOUT')),
       ),
     );
   }
